@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Qué hay en la caja?</title>
+  <meta name="description" content="Haz click en la caja de regalo y descubre la sorpresa.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="stage">
+    <h1 class="title">Tienes un regalo</h1>
+    <p class="hint" id="hint">Haz click en la caja</p>
+
+    <button class="gift" id="gift" type="button" aria-label="Abrir la caja de regalo">
+      <span class="gift__lid">
+        <span class="gift__bow"></span>
+      </span>
+      <span class="gift__body">
+        <span class="gift__ribbon"></span>
+      </span>
+      <span class="gift__shadow"></span>
+    </button>
+
+    <p class="message" id="message" role="status" aria-live="polite"></p>
+
+    <button class="reset" id="reset" type="button" hidden>Cerrar la caja</button>
+  </main>
+
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

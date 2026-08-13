@@ -1,0 +1,232 @@
+:root {
+  --bg-1: #1b1035;
+  --bg-2: #2d1155;
+  --accent: #ff4d6d;
+  --accent-dark: #c9184a;
+  --ribbon: #ffd166;
+  --text: #f8f3ff;
+  --muted: #b9a6d9;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 50% 15%, var(--bg-2), var(--bg-1) 70%);
+  overflow: hidden;
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem 1.25rem;
+  max-width: 34rem;
+}
+
+.title {
+  margin: 0 0 .35rem;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  letter-spacing: .02em;
+}
+
+.hint {
+  margin: 0 0 2.5rem;
+  color: var(--muted);
+  font-size: 1rem;
+  transition: opacity .3s ease;
+}
+
+.hint.is-hidden { opacity: 0; }
+
+/* ---------- Caja de regalo ---------- */
+
+.gift {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  animation: float 2.8s ease-in-out infinite;
+}
+
+.gift:focus-visible {
+  outline: 3px dashed var(--ribbon);
+  outline-offset: 12px;
+  border-radius: 8px;
+}
+
+.gift__body {
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+  width: 160px;
+  height: 130px;
+  border-radius: 6px;
+  background: linear-gradient(160deg, var(--accent), var(--accent-dark));
+  box-shadow: inset 0 -14px 24px rgba(0, 0, 0, .25);
+}
+
+.gift__ribbon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 100%;
+  background: var(--ribbon);
+  box-shadow: 0 0 12px rgba(255, 209, 102, .45);
+}
+
+.gift__lid {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: 190px;
+  height: 42px;
+  border-radius: 8px;
+  background: linear-gradient(160deg, #ff6b85, var(--accent-dark));
+  transform-origin: 50% 100%;
+}
+
+.gift__lid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 100%;
+  background: var(--ribbon);
+}
+
+.gift__bow {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 78px;
+  height: 30px;
+}
+
+.gift__bow::before,
+.gift__bow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 38px;
+  height: 30px;
+  border: 7px solid var(--ribbon);
+  border-radius: 50% 50% 8% 50%;
+}
+
+.gift__bow::before { left: 0; transform: rotate(-12deg); }
+.gift__bow::after { right: 0; transform: rotate(12deg) scaleX(-1); }
+
+.gift__shadow {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .35);
+  filter: blur(7px);
+}
+
+/* Estado abierto: la tapa sale de costado para no pisar el título */
+.gift.is-open { animation: none; }
+.gift.is-open .gift__lid { animation: lid-fly .9s cubic-bezier(.22, 1, .36, 1) forwards; }
+.gift.is-open .gift__body { animation: pop .45s ease; }
+
+/* ---------- Mensaje ---------- */
+
+.message {
+  margin: 2.25rem auto 0;
+  min-height: 3.2rem;
+  font-size: clamp(1.5rem, 5.5vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ribbon);
+  opacity: 0;
+  transform: translateY(14px) scale(.9);
+  transition: opacity .4s ease, transform .4s cubic-bezier(.34, 1.56, .64, 1);
+  text-shadow: 0 0 22px rgba(255, 209, 102, .35);
+}
+
+.message.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reset {
+  margin-top: 1.25rem;
+  padding: .7rem 1.5rem;
+  border: 1px solid rgba(248, 243, 255, .3);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-size: .95rem;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.reset:hover { background: rgba(248, 243, 255, .12); border-color: var(--ribbon); }
+
+/* ---------- Confeti ---------- */
+
+.confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.confetti span {
+  position: absolute;
+  top: -12vh;
+  width: 10px;
+  height: 14px;
+  border-radius: 2px;
+  animation: fall linear forwards;
+}
+
+/* ---------- Animaciones ---------- */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes lid-fly {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  45%  { transform: translate(120px, -58px) rotate(26deg); opacity: 1; }
+  100% { transform: translate(230px, -30px) rotate(72deg); opacity: 0; }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12, .88); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(115vh) rotate(720deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gift, .gift.is-open .gift__body, .gift.is-open .gift__lid { animation: none; }
+  .gift.is-open .gift__lid { opacity: 0; }
+  .message { transition-duration: .01ms; }
+  .confetti { display: none; }
+}
