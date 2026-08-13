@@ -1,5 +1,7 @@
 const MESSAGE = "¿Ya comiste, obstinada?";
-const CONFETTI_COLORS = ["#ff4d6d", "#ffd166", "#06d6a0", "#4cc9f0", "#f8f3ff"];
+// Pasteles un punto más saturados: sobre un fondo casi blanco los tonos muy
+// suaves se lavan y el confeti deja de leerse.
+const CONFETTI_COLORS = ["#f48fbf", "#7fdcb8", "#8fbdf0", "#f7cf6a", "#b8a2f0"];
 const CONFETTI_PIECES = 90;
 
 const gift = document.getElementById("gift");
