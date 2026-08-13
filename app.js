@@ -1,6 +1,6 @@
-const MESSAGE = "Ya comiste obstinada 🍰";
+const MESSAGE = "¿Ya comiste, obstinada?";
 const CONFETTI_COLORS = ["#ff4d6d", "#ffd166", "#06d6a0", "#4cc9f0", "#f8f3ff"];
-const CONFETTI_PIECES = 70;
+const CONFETTI_PIECES = 90;
 
 const gift = document.getElementById("gift");
 const messageEl = document.getElementById("message");
@@ -15,11 +15,18 @@ function throwConfetti() {
 
   for (let i = 0; i < CONFETTI_PIECES; i += 1) {
     const piece = document.createElement("span");
-    piece.style.left = `${Math.random() * 100}vw`;
-    piece.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+    piece.style.left = `${2 + Math.random() * 94}vw`;
     piece.style.animationDuration = `${2.4 + Math.random() * 2}s`;
     piece.style.animationDelay = `${Math.random() * 0.7}s`;
     piece.addEventListener("animationend", () => piece.remove());
+
+    // El hijo se balancea de lado a lado mientras el padre cae.
+    const flake = document.createElement("i");
+    flake.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+    flake.style.animationDuration = `${0.7 + Math.random() * 1.1}s`;
+    flake.style.animationDelay = `-${Math.random()}s`;
+    piece.appendChild(flake);
+
     fragment.appendChild(piece);
   }
 
